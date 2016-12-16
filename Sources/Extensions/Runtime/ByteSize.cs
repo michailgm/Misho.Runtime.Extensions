@@ -1,6 +1,6 @@
-using System.Runtime;
 using System.Runtime.InteropServices;
 using Misho.Utils;
+using System.Runtime.CompilerServices;
 
 namespace System
 {
