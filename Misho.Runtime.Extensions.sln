@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{AE3FD9ED-2425-4EB8-B53D-6CBE2A1B8228}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Misho.Runtime.Extensions.Android", "Misho.Runtime.Extensions.Android\Misho.Runtime.Extensions.Android.csproj", "{BF6D394D-731E-42B1-AD40-8948952610E3}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Misho.Runtime.Extensions.Core", "Misho.Runtime.Extensions.Core\Misho.Runtime.Extensions.Core.xproj", "{407AFB55-0120-4D22-B743-25F813EDBF80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Misho.Runtime.Extensions.iOS", "Misho.Runtime.Extensions.iOS\Misho.Runtime.Extensions.iOS.csproj", "{6054E0B0-C382-4A7D-8329-5DDBFCE536E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Misho.Runtime.Extensions.Silverlight", "Misho.Runtime.Extensions.Silverlight\Misho.Runtime.Extensions.Silverlight.csproj", "{9E0D467C-0B32-4EA1-A2EF-7C22CB172D6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Misho.Runtime.Extensions.Windows", "Misho.Runtime.Extensions.Windows\Misho.Runtime.Extensions.Windows.csproj", "{EC07DD5B-62DF-494B-8066-F6198810B133}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF6D394D-731E-42B1-AD40-8948952610E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF6D394D-731E-42B1-AD40-8948952610E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF6D394D-731E-42B1-AD40-8948952610E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF6D394D-731E-42B1-AD40-8948952610E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{407AFB55-0120-4D22-B743-25F813EDBF80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{407AFB55-0120-4D22-B743-25F813EDBF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{407AFB55-0120-4D22-B743-25F813EDBF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{407AFB55-0120-4D22-B743-25F813EDBF80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6054E0B0-C382-4A7D-8329-5DDBFCE536E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6054E0B0-C382-4A7D-8329-5DDBFCE536E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6054E0B0-C382-4A7D-8329-5DDBFCE536E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6054E0B0-C382-4A7D-8329-5DDBFCE536E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E0D467C-0B32-4EA1-A2EF-7C22CB172D6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E0D467C-0B32-4EA1-A2EF-7C22CB172D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E0D467C-0B32-4EA1-A2EF-7C22CB172D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E0D467C-0B32-4EA1-A2EF-7C22CB172D6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC07DD5B-62DF-494B-8066-F6198810B133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC07DD5B-62DF-494B-8066-F6198810B133}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC07DD5B-62DF-494B-8066-F6198810B133}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC07DD5B-62DF-494B-8066-F6198810B133}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
