@@ -41,6 +41,9 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Sources\Extensions\Runtime\BitSize.cs">
+      <Link>Extensions\Runtime\BitSize.cs</Link>
+    </Compile>
     <Compile Include="..\Sources\Extensions\Runtime\ByteSize.cs">
       <Link>Extensions\Runtime\ByteSize.cs</Link>
     </Compile>

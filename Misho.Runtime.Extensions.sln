@@ -24,6 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{146BDFA7-1E1A-46B1-B7D7-AFE9A57AC180}"
 	ProjectSection(SolutionItems) = preProject
+		Sources\Extensions\Runtime\BitSize.cs = Sources\Extensions\Runtime\BitSize.cs
 		Sources\Extensions\Runtime\ByteSize.cs = Sources\Extensions\Runtime\ByteSize.cs
 	EndProjectSection
 EndProject

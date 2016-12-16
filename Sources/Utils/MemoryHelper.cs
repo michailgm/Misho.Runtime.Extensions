@@ -12,7 +12,7 @@ namespace Misho.Utils
         Big
     }
 
-    public class MemoryHelper
+    public sealed class MemoryHelper
     {
         public const int BoolSizeInBytes = sizeof(bool);
         public const int CharSizeInBytes = sizeof(char);
@@ -177,11 +177,12 @@ namespace Misho.Utils
 
             long srcOffset = srcIndex * srcElementByteSize;
 
-#if !NETCORE && !SILVERLIGHT 
+#if !NETCORE && !SILVERLIGHT
             long destLength = dest.LongLength * destElementByteSize;
 #else
             long destLength = dest.Length * destElementByteSize;
 #endif
+
             long destOffset = destIndex * destElementByteSize;
 
             if ((srcOffset < 0) || (srcOffset > srcLength))
