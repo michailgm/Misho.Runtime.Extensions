@@ -169,10 +169,19 @@ namespace Misho.Utils
 
             long count = srcCount * srcElementByteSize;
 
+#if !NETCORE && !SILVERLIGHT
             long srcLength = src.LongLength * srcElementByteSize;
+#else
+            long srcLength = src.Length * srcElementByteSize;
+#endif
+
             long srcOffset = srcIndex * srcElementByteSize;
 
+#if !NETCORE && !SILVERLIGHT 
             long destLength = dest.LongLength * destElementByteSize;
+#else
+            long destLength = dest.Length * destElementByteSize;
+#endif
             long destOffset = destIndex * destElementByteSize;
 
             if ((srcOffset < 0) || (srcOffset > srcLength))
@@ -222,13 +231,21 @@ namespace Misho.Utils
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long Copy(Array dest, long destIndex, Array src, long srcIndex)
         {
+#if !NETCORE && !SILVERLIGHT
             return Copy(dest, destIndex, src, srcIndex, src.LongLength);
+#else
+            return Copy(dest, destIndex, src, srcIndex, src.Length);
+#endif
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long Copy(Array dest, Array src)
         {
+#if !NETCORE && !SILVERLIGHT
             return Copy(dest, 0, src, 0, src.LongLength);
+#else
+            return Copy(dest, 0, src, 0, src.Length);
+#endif
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -15,6 +15,7 @@
     "allowUnsafe": true,
     "xmlDoc": true,
     "optimize": true,
+    "define": [ "NETCORE" ],
     "compile": {
       "includeFiles": [
         "../Sources/Utils/MemoryHelper.cs"
