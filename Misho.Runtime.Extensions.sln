@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Misho.Runtime.Extensions.Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Misho.Runtime.Extensions.Windows", "Misho.Runtime.Extensions.Windows\Misho.Runtime.Extensions.Windows.csproj", "{EC07DD5B-62DF-494B-8066-F6198810B133}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{FEBCC4DC-B430-423F-8C20-9EFC38C20677}"
+	ProjectSection(SolutionItems) = preProject
+		Sources\Utils\MemoryHelper.cs = Sources\Utils\MemoryHelper.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +49,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FEBCC4DC-B430-423F-8C20-9EFC38C20677} = {AE3FD9ED-2425-4EB8-B53D-6CBE2A1B8228}
 	EndGlobalSection
 EndGlobal
