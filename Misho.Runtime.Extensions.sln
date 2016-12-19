@@ -24,8 +24,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{146BDFA7-1E1A-46B1-B7D7-AFE9A57AC180}"
 	ProjectSection(SolutionItems) = preProject
+		Sources\Extensions\Runtime\Array.cs = Sources\Extensions\Runtime\Array.cs
 		Sources\Extensions\Runtime\BitSize.cs = Sources\Extensions\Runtime\BitSize.cs
 		Sources\Extensions\Runtime\ByteSize.cs = Sources\Extensions\Runtime\ByteSize.cs
+		Sources\Extensions\Runtime\Type.cs = Sources\Extensions\Runtime\Type.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Collections", "Collections", "{BEA1202C-7616-475F-8312-66BB409F3503}"
+	ProjectSection(SolutionItems) = preProject
+		Sources\Collections\ArrayList.cs = Sources\Collections\ArrayList.cs
 	EndProjectSection
 EndProject
 Global
@@ -62,5 +69,6 @@ Global
 		{FEBCC4DC-B430-423F-8C20-9EFC38C20677} = {AE3FD9ED-2425-4EB8-B53D-6CBE2A1B8228}
 		{F79B8C18-7A44-43EE-9B93-7EFADEC61E31} = {AE3FD9ED-2425-4EB8-B53D-6CBE2A1B8228}
 		{146BDFA7-1E1A-46B1-B7D7-AFE9A57AC180} = {F79B8C18-7A44-43EE-9B93-7EFADEC61E31}
+		{BEA1202C-7616-475F-8312-66BB409F3503} = {AE3FD9ED-2425-4EB8-B53D-6CBE2A1B8228}
 	EndGlobalSection
 EndGlobal

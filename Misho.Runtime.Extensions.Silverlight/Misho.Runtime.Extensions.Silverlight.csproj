@@ -59,11 +59,20 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Sources\Collections\ArrayList.cs">
+      <Link>Collections\ArrayList.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Extensions\Runtime\Array.cs">
+      <Link>Extensions\Runtime\Array.cs</Link>
+    </Compile>
     <Compile Include="..\Sources\Extensions\Runtime\BitSize.cs">
       <Link>Extensions\Runtime\BitSize.cs</Link>
     </Compile>
     <Compile Include="..\Sources\Extensions\Runtime\ByteSize.cs">
       <Link>Extensions\Runtime\ByteSize.cs</Link>
+    </Compile>
+    <Compile Include="..\Sources\Extensions\Runtime\Type.cs">
+      <Link>Extensions\Runtime\Type.cs</Link>
     </Compile>
     <Compile Include="..\Sources\Utils\MemoryHelper.cs">
       <Link>Utils\MemoryHelper.cs</Link>

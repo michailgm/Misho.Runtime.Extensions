@@ -6,6 +6,14 @@ using System.Security;
 
 namespace Misho.Utils
 {
+#if !NETCORE && !SILVERLIGHT
+    using INT = Int64;
+#else
+    using INT = Int32;
+#endif
+
+#pragma warning disable 1591
+
     public enum Endian
     {
         Little,
@@ -33,12 +41,12 @@ namespace Misho.Utils
 
         [SecuritySafeCritical]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(void* dest, void* src, long bytesCount)
+        public static unsafe void Copy(void* dest, void* src, INT bytesCount)
         {
-            long i, count;
-            long offset = 0;
+            INT i, count;
+            INT offset = 0;
 
-            long block = bytesCount >> 3;
+            INT block = bytesCount >> 3;
 
             if (block > 0)
             {
@@ -106,7 +114,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static unsafe void Copy(char[] dest, byte[] src, long bytesCount)
+        internal static unsafe void Copy(char[] dest, byte[] src, INT bytesCount)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -116,7 +124,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static unsafe void Copy(char[] dest, long destIndex, byte[] src, long srcIndex, long bytesCount)
+        internal static unsafe void Copy(char[] dest, INT destIndex, byte[] src, INT srcIndex, INT bytesCount)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -126,7 +134,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static unsafe void Copy(byte[] dest, char[] src, long bytesCount)
+        internal static unsafe void Copy(byte[] dest, char[] src, INT bytesCount)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -136,7 +144,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static unsafe void Copy(byte[] dest, long destIndex, char[] src, long srcIndex, long bytesCount)
+        internal static unsafe void Copy(byte[] dest, INT destIndex, char[] src, INT srcIndex, INT bytesCount)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -147,7 +155,7 @@ namespace Misho.Utils
 
         [SecuritySafeCritical]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long Copy(Array dest, long destIndex, Array src, long srcIndex, long srcCount)
+        public static INT Copy(Array dest, INT destIndex, Array src, INT srcIndex, INT srcCount)
         {
             if (src == null)
             {
@@ -167,23 +175,23 @@ namespace Misho.Utils
             int srcElementByteSize = src.ElementByteSize();
             int destElementByteSize = dest.ElementByteSize();
 
-            long count = srcCount * srcElementByteSize;
+            INT count = srcCount * srcElementByteSize;
 
 #if !NETCORE && !SILVERLIGHT
-            long srcLength = src.LongLength * srcElementByteSize;
+            INT srcLength = src.LongLength * srcElementByteSize;
 #else
-            long srcLength = src.Length * srcElementByteSize;
+            INT srcLength = src.Length * srcElementByteSize;
 #endif
 
-            long srcOffset = srcIndex * srcElementByteSize;
+            INT srcOffset = srcIndex * srcElementByteSize;
 
 #if !NETCORE && !SILVERLIGHT
-            long destLength = dest.LongLength * destElementByteSize;
+            INT destLength = dest.LongLength * destElementByteSize;
 #else
-            long destLength = dest.Length * destElementByteSize;
+            INT destLength = dest.Length * destElementByteSize;
 #endif
 
-            long destOffset = destIndex * destElementByteSize;
+            INT destOffset = destIndex * destElementByteSize;
 
             if ((srcOffset < 0) || (srcOffset > srcLength))
             {
@@ -195,10 +203,10 @@ namespace Misho.Utils
                 throw new ArgumentOutOfRangeException(nameof(destIndex));
             }
 
-            long maxSrcCount = srcLength - srcOffset;
-            long maxDestCount = destLength - destOffset;
+            INT maxSrcCount = srcLength - srcOffset;
+            INT maxDestCount = destLength - destOffset;
 
-            long bytesCount = (new long[] { count, maxSrcCount, maxDestCount }).Min();
+            INT bytesCount = (new INT[] { count, maxSrcCount, maxDestCount }).Min();
 
             var srcHdl = GCHandle.Alloc(src, GCHandleType.Pinned);
             var destHdl = GCHandle.Alloc(dest, GCHandleType.Pinned);
@@ -230,7 +238,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long Copy(Array dest, long destIndex, Array src, long srcIndex)
+        public static INT Copy(Array dest, INT destIndex, Array src, INT srcIndex)
         {
 #if !NETCORE && !SILVERLIGHT
             return Copy(dest, destIndex, src, srcIndex, src.LongLength);
@@ -240,7 +248,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long Copy(Array dest, Array src)
+        public static INT Copy(Array dest, Array src)
         {
 #if !NETCORE && !SILVERLIGHT
             return Copy(dest, 0, src, 0, src.LongLength);
@@ -250,7 +258,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(bool[] dest, bool[] src, long count)
+        public static unsafe void Copy(bool[] dest, bool[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -260,7 +268,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(bool[] dest, long destIndex, bool[] src, long srcIndex, long count)
+        public static unsafe void Copy(bool[] dest, INT destIndex, bool[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -270,7 +278,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(char[] dest, char[] src, long count)
+        public static unsafe void Copy(char[] dest, char[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -280,7 +288,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(char[] dest, long destIndex, char[] src, long srcIndex, long count)
+        public static unsafe void Copy(char[] dest, INT destIndex, char[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -290,7 +298,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(sbyte[] dest, sbyte[] src, long count)
+        public static unsafe void Copy(sbyte[] dest, sbyte[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -300,7 +308,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(sbyte[] dest, long destIndex, sbyte[] src, long srcIndex, long count)
+        public static unsafe void Copy(sbyte[] dest, INT destIndex, sbyte[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -310,7 +318,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(byte[] dest, byte[] src, long count)
+        public static unsafe void Copy(byte[] dest, byte[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -320,7 +328,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(byte[] dest, long destIndex, byte[] src, long srcIndex, long count)
+        public static unsafe void Copy(byte[] dest, INT destIndex, byte[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -330,7 +338,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(short[] dest, short[] src, long count)
+        public static unsafe void Copy(short[] dest, short[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -340,7 +348,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(short[] dest, long destIndex, short[] src, long srcIndex, long count)
+        public static unsafe void Copy(short[] dest, INT destIndex, short[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -350,7 +358,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(ushort[] dest, ushort[] src, long count)
+        public static unsafe void Copy(ushort[] dest, ushort[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -360,7 +368,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(ushort[] dest, long destIndex, ushort[] src, long srcIndex, long count)
+        public static unsafe void Copy(ushort[] dest, INT destIndex, ushort[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -370,7 +378,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(int[] dest, int[] src, long count)
+        public static unsafe void Copy(int[] dest, int[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -380,7 +388,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(int[] dest, long destIndex, int[] src, long srcIndex, long count)
+        public static unsafe void Copy(int[] dest, INT destIndex, int[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -390,7 +398,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(uint[] dest, uint[] src, long count)
+        public static unsafe void Copy(uint[] dest, uint[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -400,7 +408,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(uint[] dest, long destIndex, uint[] src, long srcIndex, long count)
+        public static unsafe void Copy(uint[] dest, INT destIndex, uint[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -410,7 +418,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(long[] dest, long[] src, long count)
+        public static unsafe void Copy(long[] dest, long[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -420,7 +428,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(long[] dest, long destIndex, long[] src, long srcIndex, long count)
+        public static unsafe void Copy(long[] dest, INT destIndex, long[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -430,7 +438,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(ulong[] dest, ulong[] src, long count)
+        public static unsafe void Copy(ulong[] dest, ulong[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -440,7 +448,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(ulong[] dest, long destIndex, ulong[] src, long srcIndex, long count)
+        public static unsafe void Copy(ulong[] dest, INT destIndex, ulong[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -450,7 +458,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(decimal[] dest, decimal[] src, long count)
+        public static unsafe void Copy(decimal[] dest, decimal[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -460,7 +468,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(decimal[] dest, long destIndex, decimal[] src, long srcIndex, long count)
+        public static unsafe void Copy(decimal[] dest, INT destIndex, decimal[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -470,7 +478,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(float[] dest, float[] src, long count)
+        public static unsafe void Copy(float[] dest, float[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -480,7 +488,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(float[] dest, long destIndex, float[] src, long srcIndex, long count)
+        public static unsafe void Copy(float[] dest, INT destIndex, float[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -490,7 +498,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(double[] dest, double[] src, long count)
+        public static unsafe void Copy(double[] dest, double[] src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -500,7 +508,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(double[] dest, long destIndex, double[] src, long srcIndex, long count)
+        public static unsafe void Copy(double[] dest, INT destIndex, double[] src, INT srcIndex, INT count)
         {
             fixed (void* sptr = &src[srcIndex])
             fixed (void* dptr = &dest[destIndex])
@@ -510,7 +518,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(string dest, string src, long count)
+        public static unsafe void Copy(string dest, string src, INT count)
         {
             fixed (void* sptr = src)
             fixed (void* dptr = dest)
@@ -520,7 +528,7 @@ namespace Misho.Utils
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Copy(string dest, long destIndex, string src, long srcIndex, long count)
+        public static unsafe void Copy(string dest, INT destIndex, string src, INT srcIndex, INT count)
         {
             fixed (char* sptr = src)
             fixed (char* dptr = dest)
@@ -532,4 +540,6 @@ namespace Misho.Utils
             }
         }
     }
+
+#pragma warning restore 1591
 }

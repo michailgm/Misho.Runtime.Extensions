@@ -1,9 +1,9 @@
-using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using Misho.Utils;
 
 namespace System
 {
+#pragma warning disable 1591
     public static partial class Extensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -38,7 +38,7 @@ namespace System
                 case TypeCode.Char:
                     return MemoryHelper.CharSizeInBytes;
                 default:
-                    return Marshal.SizeOf(type);
+                    return type.SizeOf();
             }
         }
 
@@ -155,4 +155,6 @@ namespace System
             return (array == null) ? 0 : array.GetType().GetElementType().ByteSize();
         }
     }
+
+#pragma warning restore 1591
 }
