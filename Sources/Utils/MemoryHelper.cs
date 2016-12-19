@@ -14,10 +14,10 @@ namespace Misho.Utils
 
 #pragma warning disable 1591
 
-    public enum Endian
+    public enum ByteOrder
     {
-        Little,
-        Big
+        LittleEndian,
+        BigEndian
     }
 
     public sealed class MemoryHelper
@@ -36,8 +36,8 @@ namespace Misho.Utils
         public const int FloatSizeInBytes = sizeof(float);
         public const int DoubleSizeInBytes = sizeof(double);
 
-        public static readonly Endian CurrentEndian =
-            (BitConverter.IsLittleEndian) ? Endian.Little : Endian.Big;
+        public static readonly ByteOrder CurrentByteOrder =
+            (BitConverter.IsLittleEndian) ? ByteOrder.LittleEndian : ByteOrder.BigEndian;
 
         [SecuritySafeCritical]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -50,8 +50,8 @@ namespace Misho.Utils
 
             if (block > 0)
             {
-                long* pDest = (long*)dest;
-                long* pSrc = (long*)src;
+                ulong* pDest = (ulong*)dest;
+                ulong* pSrc = (ulong*)src;
 
                 count = block;
                 while (count-- > 0)

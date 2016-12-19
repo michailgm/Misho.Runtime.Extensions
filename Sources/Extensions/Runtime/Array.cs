@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using Misho.Utils;
+using System.Text;
 
 namespace System
 {
@@ -7,7 +8,7 @@ namespace System
 
     public static partial class Extensions
     {
-        #region ToBytes functions
+        #region GetBytes functions
 
         /// <summary>
         /// Convert bool value to bytes array
@@ -15,7 +16,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this bool value)
+        public static byte[] GetBytes(this bool value)
         {
             byte[] buf = new byte[MemoryHelper.BoolSizeInBytes];
 
@@ -23,7 +24,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(bool*)ptr = *(bool*)&value;
+                    *(bool*)ptr = *(&value);
                 }
             }
 
@@ -36,7 +37,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this char value)
+        public static byte[] GetBytes(this char value)
         {
             byte[] buf = new byte[MemoryHelper.CharSizeInBytes];
 
@@ -44,7 +45,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(char*)ptr = *(char*)&value;
+                    *(char*)ptr = *(&value);
                 }
             }
 
@@ -57,7 +58,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this sbyte value)
+        public static byte[] GetBytes(this sbyte value)
         {
             byte[] buf = new byte[MemoryHelper.SByteSizeInBytes];
 
@@ -65,7 +66,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(sbyte*)ptr = *(sbyte*)&value;
+                    *(sbyte*)ptr = *(&value);
                 }
             }
 
@@ -78,7 +79,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this byte value)
+        public static byte[] GetBytes(this byte value)
         {
             byte[] buf = new byte[MemoryHelper.ByteSizeInBytes];
 
@@ -86,7 +87,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(byte*)ptr = *(byte*)&value;
+                    *ptr = *(&value);
                 }
             }
 
@@ -99,7 +100,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this short value)
+        public static byte[] GetBytes(this short value)
         {
             byte[] buf = new byte[MemoryHelper.ShortSizeInBytes];
 
@@ -107,7 +108,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(short*)ptr = *(short*)&value;
+                    *(short*)ptr = *(&value);
                 }
             }
 
@@ -120,7 +121,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this ushort value)
+        public static byte[] GetBytes(this ushort value)
         {
             byte[] buf = new byte[MemoryHelper.UShortSizeInBytes];
 
@@ -128,7 +129,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(ushort*)ptr = *(ushort*)&value;
+                    *(ushort*)ptr = *(&value);
                 }
             }
 
@@ -141,7 +142,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this int value)
+        public static byte[] GetBytes(this int value)
         {
             byte[] buf = new byte[MemoryHelper.IntSizeInBytes];
 
@@ -149,7 +150,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(int*)ptr = *(int*)&value;
+                    *(int*)ptr = *(&value);
                 }
             }
 
@@ -162,7 +163,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this uint value)
+        public static byte[] GetBytes(this uint value)
         {
             byte[] buf = new byte[MemoryHelper.UIntSizeInBytes];
 
@@ -170,7 +171,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(uint*)ptr = *(uint*)&value;
+                    *(uint*)ptr = *(&value);
                 }
             }
 
@@ -183,7 +184,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this long value)
+        public static byte[] GetBytes(this long value)
         {
             byte[] buf = new byte[MemoryHelper.LongSizeInBytes];
 
@@ -191,7 +192,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(long*)ptr = *(long*)&value;
+                    *(long*)ptr = *(&value);
                 }
             }
 
@@ -204,7 +205,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this ulong value)
+        public static byte[] GetBytes(this ulong value)
         {
             byte[] buf = new byte[MemoryHelper.ULongSizeInBytes];
 
@@ -212,7 +213,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(ulong*)ptr = *(ulong*)&value;
+                    *(ulong*)ptr = *(&value);
                 }
             }
 
@@ -225,7 +226,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this decimal value)
+        public static byte[] GetBytes(this decimal value)
         {
             byte[] buf = new byte[MemoryHelper.DecimalSizeInBytes];
 
@@ -233,7 +234,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(decimal*)ptr = *(decimal*)&value;
+                    *(decimal*)ptr = *(&value);
                 }
             }
 
@@ -246,7 +247,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this float value)
+        public static byte[] GetBytes(this float value)
         {
             byte[] buf = new byte[MemoryHelper.FloatSizeInBytes];
 
@@ -254,7 +255,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(float*)ptr = *(float*)&value;
+                    *(float*)ptr = *(&value);
                 }
             }
 
@@ -267,7 +268,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this double value)
+        public static byte[] GetBytes(this double value)
         {
             byte[] buf = new byte[MemoryHelper.DoubleSizeInBytes];
 
@@ -275,7 +276,7 @@ namespace System
             {
                 fixed (byte* ptr = buf)
                 {
-                    *(double*)ptr = *(double*)&value;
+                    *(double*)ptr = *(&value);
                 }
             }
 
@@ -288,7 +289,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this string value)
+        public static byte[] GetBytes(this string value)
         {
             if (value == null) return null;
 
@@ -297,12 +298,9 @@ namespace System
 
             unsafe
             {
-                fixed (byte* ptr = buf)
-                fixed (char* sptr = value)
+                fixed (char* src = value)
+                fixed (byte* dst = buf)
                 {
-                    char* dst = (char*)ptr;
-                    char* src = sptr;
-
                     MemoryHelper.Copy(dst, src, buf.Length);
                 }
             }
@@ -318,7 +316,7 @@ namespace System
         /// <param name="length"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this string value, int startIndex, int length)
+        public static byte[] GetBytes(this string value, int startIndex, int length)
         {
             if (value == null) return null;
 
@@ -336,13 +334,10 @@ namespace System
 
             unsafe
             {
-                fixed (byte* ptr = buf)
-                fixed (char* sptr = value)
+                fixed (char* src = value)
+                fixed (byte* dst = buf)
                 {
-                    char* dst = (char*)ptr;
-                    char* src = sptr + startIndex;
-
-                    MemoryHelper.Copy(dst, src, buf.Length);
+                    MemoryHelper.Copy(dst, src + startIndex, buf.Length);
                 }
             }
 
@@ -356,9 +351,9 @@ namespace System
         /// <param name="startIndex"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this string value, int startIndex)
+        public static byte[] GetBytes(this string value, int startIndex)
         {
-            return ToBytes(value, startIndex, value.Length - startIndex);
+            return GetBytes(value, startIndex, value.Length - startIndex);
         }
 
         /// <summary>
@@ -367,7 +362,7 @@ namespace System
         /// <param name="value"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this char[] value)
+        public static byte[] GetBytes(this char[] value)
         {
             if (value == null) return null;
 
@@ -376,12 +371,9 @@ namespace System
 
             unsafe
             {
-                fixed (byte* ptr = buf)
-                fixed (char* sptr = value)
+                fixed (char* src = value)
+                fixed (byte* dst = buf)
                 {
-                    char* dst = (char*)ptr;
-                    char* src = sptr;
-
                     MemoryHelper.Copy(dst, src, buf.Length);
                 }
             }
@@ -397,7 +389,7 @@ namespace System
         /// <param name="length"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this char[] value, int startIndex, int length)
+        public static byte[] GetBytes(this char[] value, int startIndex, int length)
         {
             if (value == null) return null;
 
@@ -415,13 +407,10 @@ namespace System
 
             unsafe
             {
-                fixed (byte* ptr = buf)
-                fixed (char* sptr = value)
+                fixed (char* src = value)
+                fixed (byte* dst = buf)
                 {
-                    char* dst = (char*)ptr;
-                    char* src = sptr + startIndex;
-
-                    MemoryHelper.Copy(dst, src, buf.Length);
+                    MemoryHelper.Copy(dst, src + startIndex, buf.Length);
                 }
             }
 
@@ -435,12 +424,505 @@ namespace System
         /// <param name="startIndex"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToBytes(this char[] value, int startIndex)
+        public static byte[] GetBytes(this char[] value, int startIndex)
         {
-            return ToBytes(value, startIndex, value.Length - startIndex);
+            return GetBytes(value, startIndex, value.Length - startIndex);
         }
 
         #endregion
+
+        #region GetBytes functions with Encoding
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte[] GetBytes(this string value, Encoding encoding)
+        {
+            return encoding.GetBytes(value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte[] GetBytes(this string value, int startIndex, Encoding encoding)
+        {
+            return encoding.GetBytes(value.GetChars(), startIndex, value.Length - startIndex);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte[] GetBytes(this char[] value, Encoding encoding)
+        {
+            return encoding.GetBytes(value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte[] GetBytes(this char[] value, int startIndex, int length, Encoding encoding)
+        {
+            return encoding.GetBytes(value, startIndex, length);
+        }
+
+        public static byte[] GetBytes(this char[] value, int startIndex, Encoding encoding)
+        {
+            return encoding.GetBytes(value, startIndex, value.Length - startIndex);
+        }
+
+        #endregion
+
+        #region functions GetChars
+
+        /// <summary>
+        /// Convert string value to chars array
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] GetChars(this string value)
+        {
+            if (value == null) return null;
+
+            int length = value.Length;
+            char[] buf = new char[length];
+
+            unsafe
+            {
+                fixed (char* src = value)
+                fixed (char* dst = buf)
+                {
+                    MemoryHelper.Copy(dst, src, length);
+                }
+            }
+
+            return buf;
+        }
+
+        /// <summary>
+        /// Convert string value from startIndex with lenght to chars array
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] GetChars(this string value, int startIndex, int length)
+        {
+            if (value == null) return null;
+
+            if ((startIndex < 0) || (startIndex > value.Length))
+            {
+                throw new ArgumentOutOfRangeException(nameof(startIndex));
+            }
+
+            if ((length < 0) || (length > (value.Length - startIndex)))
+            {
+                throw new ArgumentOutOfRangeException(nameof(length));
+            }
+
+            char[] buf = new char[length];
+
+            unsafe
+            {
+                fixed (char* src = value)
+                fixed (char* dst = buf)
+                {
+                    MemoryHelper.Copy(dst, src + startIndex, length);
+                }
+            }
+
+            return buf;
+        }
+
+        /// <summary>
+        /// Convert string value from startIndex to end of string into chars array
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="startIndex"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] GetChars(this string value, int startIndex)
+        {
+            return GetChars(value, startIndex, value.Length - startIndex);
+        }
+
+        #endregion
+
+        #region functions GetString
+
+        /// <summary>
+        /// Convert chars array to string
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string GetString(this char[] value)
+        {
+            if (value == null) return null;
+
+            return new string(value);
+        }
+
+        /// <summary>
+        /// Convert char array from startIndex with lenght into string
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string GetString(this char[] value, int startIndex, int length)
+        {
+            if (value == null) return null;
+
+            if ((startIndex < 0) || (startIndex > value.Length))
+            {
+                throw new ArgumentOutOfRangeException(nameof(startIndex));
+            }
+
+            if ((length < 0) || (length > (value.Length - startIndex)))
+            {
+                throw new ArgumentOutOfRangeException(nameof(length));
+            }
+
+            return new string(value, startIndex, length);
+        }
+
+        /// <summary>
+        /// Convert char array from startIndex to end of string into string
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="startIndex"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string GetChars(this char[] value, int startIndex)
+        {
+            return new string(value, startIndex, value.Length - startIndex);
+        }
+
+        #endregion
+
+        #region Convert byte array to typed value functions
+
+        /// <summary>
+        /// Convert byte array to bool
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool GetBoolean(this byte[] buf)
+        {
+            bool value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(bool*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to sbyte
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static sbyte GetSByte(this byte[] buf)
+        {
+            sbyte value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(sbyte*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to byte
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte GetByte(this byte[] buf)
+        {
+            byte value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to char
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char GetChar(this byte[] buf)
+        {
+            char value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(char*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to short
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static short GetShort(this byte[] buf)
+        {
+            short value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(short*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to ushort
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ushort GetUShort(this byte[] buf)
+        {
+            ushort value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(ushort*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to int
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int GetInt(this byte[] buf)
+        {
+            int value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(int*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to uint
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static uint GetUInt(this byte[] buf)
+        {
+            uint value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(uint*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to long
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static long GetLong(this byte[] buf)
+        {
+            long value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(long*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to ulong
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static ulong GetULong(this byte[] buf)
+        {
+            ulong value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(ulong*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to decimal
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static decimal GetDecimal(this byte[] buf)
+        {
+            decimal value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(decimal*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to float 
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float GetFloat(this byte[] buf)
+        {
+            float value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(float*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Convert byte array to double
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double GetDouble(this byte[] buf)
+        {
+            double value;
+
+            unsafe
+            {
+                fixed (byte* ptr = buf)
+                {
+                    *(&value) = *(double*)ptr;
+                }
+            }
+
+            return value;
+        }
+
+        #endregion
+
+        #region Convert endian array functions
+
+        /// <summary>
+        /// Change byte order of byte array 
+        /// </summary>
+        /// <param name="value"></param> 
+        /// <param name="order"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte[] ByteOrder(this byte[] value, ByteOrder order)
+        {
+            if (order != MemoryHelper.CurrentByteOrder)
+                Array.Reverse(value);
+
+            return value;
+        }
+
+        /// <summary>
+        /// Change byte order of char array 
+        /// </summary>
+        /// <param name="value"></param> 
+        /// <param name="order"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] ByteOrder(this char[] value, ByteOrder order)
+        {
+            if (order != MemoryHelper.CurrentByteOrder)
+                Array.Reverse(value);
+
+            return value;
+        }
+
+        /// <summary>
+        /// Change byte order of string 
+        /// </summary>
+        /// <param name="value"></param> 
+        /// <param name="order"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string ByteOrder(this string value, ByteOrder order)
+        {
+            char[] buf = value.GetChars();
+
+            if (order != MemoryHelper.CurrentByteOrder)
+                Array.Reverse(buf);
+
+            return buf.GetString();
+        }
+
+        #endregion
+
     }
 
 #pragma warning restore 1591

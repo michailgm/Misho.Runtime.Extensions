@@ -20,6 +20,7 @@
       "includeFiles": [
         "../Sources/Collections/ArrayList.cs",
         "../Sources/Utils/MemoryHelper.cs",
+        "../Sources/Utils/ReverseBytes.cs",
         "../Sources/Extensions/Runtime/ByteSize.cs",
         "../Sources/Extensions/Runtime/BitSize.cs",
         "../Sources/Extensions/Runtime/Array.cs",
