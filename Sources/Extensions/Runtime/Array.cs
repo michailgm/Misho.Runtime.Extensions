@@ -872,57 +872,6 @@ namespace System
 
         #endregion
 
-        #region Convert endian array functions
-
-        /// <summary>
-        /// Change byte order of byte array 
-        /// </summary>
-        /// <param name="value"></param> 
-        /// <param name="order"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ByteOrder(this byte[] value, ByteOrder order)
-        {
-            if (order != MemoryHelper.CurrentByteOrder)
-                Array.Reverse(value);
-
-            return value;
-        }
-
-        /// <summary>
-        /// Change byte order of char array 
-        /// </summary>
-        /// <param name="value"></param> 
-        /// <param name="order"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static char[] ByteOrder(this char[] value, ByteOrder order)
-        {
-            if (order != MemoryHelper.CurrentByteOrder)
-                Array.Reverse(value);
-
-            return value;
-        }
-
-        /// <summary>
-        /// Change byte order of string 
-        /// </summary>
-        /// <param name="value"></param> 
-        /// <param name="order"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string ByteOrder(this string value, ByteOrder order)
-        {
-            char[] buf = value.GetChars();
-
-            if (order != MemoryHelper.CurrentByteOrder)
-                Array.Reverse(buf);
-
-            return buf.GetString();
-        }
-
-        #endregion
-
     }
 
 #pragma warning restore 1591

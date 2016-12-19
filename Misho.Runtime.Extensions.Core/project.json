@@ -23,6 +23,7 @@
         "../Sources/Utils/ReverseBytes.cs",
         "../Sources/Extensions/Runtime/ByteSize.cs",
         "../Sources/Extensions/Runtime/BitSize.cs",
+        "../Sources/Extensions/Runtime/ByteOrder.cs",
         "../Sources/Extensions/Runtime/Array.cs",
         "../Sources/Extensions/Runtime/Type.cs"
       ]
