@@ -475,7 +475,7 @@ namespace System
         public static char[] GetChars(this string value)
         {
             if (value == null) return null;
-
+            
             int length = value.Length;
             char[] buf = new char[length];
 
@@ -484,7 +484,7 @@ namespace System
                 fixed (char* src = value)
                 fixed (char* dst = buf)
                 {
-                    MemoryHelper.Copy(dst, src, length);
+                    MemoryHelper.Copy(dst, src, length * MemoryHelper.CharSizeInBytes);
                 }
             }
 
@@ -520,7 +520,7 @@ namespace System
                 fixed (char* src = value)
                 fixed (char* dst = buf)
                 {
-                    MemoryHelper.Copy(dst, src + startIndex, length);
+                    MemoryHelper.Copy(dst, src + startIndex, length * MemoryHelper.CharSizeInBytes);
                 }
             }
 
@@ -539,6 +539,40 @@ namespace System
             return GetChars(value, startIndex, value.Length - startIndex);
         }
 
+        #endregion
+
+        #region GetChars functions with Encoding
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] GetChars(this string value, Encoding encoding)
+        {
+            return encoding.GetChars(value.GetBytes());
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] GetChars(this string value, int startIndex, Encoding encoding)
+        {
+            var index = startIndex * MemoryHelper.CharSizeInBytes;
+            return encoding.GetChars(value.GetBytes(), index , (value.Length * MemoryHelper.CharSizeInBytes) - index);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] GetChars(this byte[] value, Encoding encoding)
+        {
+            return encoding.GetChars(value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] GetChars(this byte[] value, int startByteIndex, int byteLength, Encoding encoding)
+        {
+            return encoding.GetChars(value, startByteIndex, byteLength);
+        }
+
+        public static char[] GetChars(this byte[] value, int startByteIndex, Encoding encoding)
+        {
+            return encoding.GetChars(value, startByteIndex, value.Length - startByteIndex);
+        }
+        
         #endregion
 
         #region functions GetString
@@ -588,9 +622,64 @@ namespace System
         /// <param name="startIndex"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string GetChars(this char[] value, int startIndex)
+        public static string GetString(this char[] value, int startIndex)
         {
             return new string(value, startIndex, value.Length - startIndex);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string GetString(this byte[] value)
+        {
+            if (value == null) return null;
+
+            int length = value.Length;
+            char[] buf = new char[length / MemoryHelper.CharSizeInBytes];
+
+            unsafe
+            {
+                fixed (byte* src = value)
+                fixed (char* dst = buf)
+                {
+                    MemoryHelper.Copy(dst, src, length);
+                }
+            }
+
+            return new string(buf);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string GetString(this byte[] value, int startIndex, int length)
+        {
+            if (value == null) return null;
+
+            if ((startIndex < 0) || (startIndex > value.Length))
+            {
+                throw new ArgumentOutOfRangeException(nameof(startIndex));
+            }
+
+            if ((length < 0) || (length > (value.Length - startIndex)))
+            {
+                throw new ArgumentOutOfRangeException(nameof(length));
+            }
+
+            char[] buf = new char[length / MemoryHelper.CharSizeInBytes];
+
+            unsafe
+            {
+                fixed (byte* src = value)
+                fixed (char* dst = buf)
+                {
+                    MemoryHelper.Copy(dst, src + startIndex, value.Length);
+                }
+            }
+
+            return new string(buf);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string GetString(this byte[] value, int startIndex)
+        {
+            return GetString(value, startIndex, value.Length - startIndex);
         }
 
         #endregion
