@@ -95,88 +95,48 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static char SwapBytes(char value)
         {
-            char inChar = value;
-            char retChar;
+            char tmp = value;
+            ushort* ptr = (ushort*)&tmp;
 
-            byte* src = (byte*)&inChar;
-            byte* dst = (byte*)&retChar;
-
-            dst[0] = src[1];
-            dst[1] = src[0];
-
-            return retChar;
+            ptr[0] = SwapBytes(ptr[0]);
+            return tmp;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static float SwapBytes(float value)
         {
-            float inFloat = value;
-            float retFloat;
+            float tmp = value;
+            uint* ptr = (uint*)&tmp;
 
-            byte* src = (byte*)&inFloat;
-            byte* dst = (byte*)&retFloat;
-
-            dst[0] = src[3];
-            dst[1] = src[2];
-            dst[2] = src[1];
-            dst[3] = src[0];
-
-            return retFloat;
+            ptr[0] = SwapBytes(ptr[0]);
+            return tmp;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static double SwapBytes(double value)
         {
-            double inDouble = value;
-            double retDouble;
+            double tmp = value;
+            ulong* ptr = (ulong*)&tmp;
 
-            byte* src = (byte*)&inDouble;
-            byte* dst = (byte*)&retDouble;
-
-            dst[0] = src[7];
-            dst[1] = src[6];
-            dst[2] = src[5];
-            dst[3] = src[4];
-            dst[4] = src[3];
-            dst[5] = src[2];
-            dst[6] = src[1];
-            dst[7] = src[0];
-
-            return retDouble;
+            ptr[0] = SwapBytes(ptr[0]);
+            return tmp;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static decimal SwapBytes(decimal value)
         {
-            decimal inDecimal = value;
-            decimal retDecimal;
+            decimal tmp = value;
+            ulong* ptr = (ulong*)&tmp;
 
-            byte* src = (byte*)&inDecimal;
-            byte* dst = (byte*)&retDecimal;
+            ulong v = ptr[0];
+            ptr[0] = SwapBytes(ptr[1]);
+            ptr[1] = SwapBytes(v);
 
-            dst[0] = src[15];
-            dst[1] = src[14];
-            dst[2] = src[13];
-            dst[3] = src[12];
-            dst[4] = src[11];
-            dst[5] = src[10];
-            dst[6] = src[9];
-            dst[7] = src[8];
-
-            dst[8] = src[7];
-            dst[9] = src[6];
-            dst[10] = src[5];
-            dst[11] = src[4];
-            dst[12] = src[3];
-            dst[13] = src[2];
-            dst[14] = src[1];
-            dst[15] = src[0];
-
-            return retDecimal;
+            return tmp;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static void SwapBytes(void* value, INT count)
+        public unsafe static void ReverseBytes(void* value, INT count)
         {
             byte* ptr = (byte*)value;
             byte tmp;
@@ -191,7 +151,7 @@ namespace System
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SwapBytes(Array value, INT count)
+        public static void ReverseBytes(Array value, INT count)
         {
             var srcHdl = GCHandle.Alloc(value, GCHandleType.Pinned);
 
@@ -200,7 +160,7 @@ namespace System
                 unsafe
                 {
                     IntPtr srcIntPtr = srcHdl.AddrOfPinnedObject();
-                    SwapBytes(srcIntPtr.ToPointer(), count * value.ElementByteSize());
+                    ReverseBytes(srcIntPtr.ToPointer(), count * value.ElementByteSize());
                 }
             }
             finally
