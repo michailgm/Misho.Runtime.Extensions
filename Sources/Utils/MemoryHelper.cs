@@ -14,12 +14,6 @@ namespace Misho.Utils
 
 #pragma warning disable 1591
 
-    public enum ByteOrder
-    {
-        LittleEndian,
-        BigEndian
-    }
-
     public sealed class MemoryHelper
     {
         public const int BoolSizeInBytes = sizeof(bool);
@@ -35,9 +29,6 @@ namespace Misho.Utils
         public const int DecimalSizeInBytes = sizeof(decimal);
         public const int FloatSizeInBytes = sizeof(float);
         public const int DoubleSizeInBytes = sizeof(double);
-
-        public static readonly ByteOrder CurrentByteOrder =
-            (BitConverter.IsLittleEndian) ? ByteOrder.LittleEndian : ByteOrder.BigEndian;
 
         [SecuritySafeCritical]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

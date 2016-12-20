@@ -18,7 +18,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{FEBCC4DC-B430-423F-8C20-9EFC38C20677}"
 	ProjectSection(SolutionItems) = preProject
 		Sources\Utils\MemoryHelper.cs = Sources\Utils\MemoryHelper.cs
-		Sources\Utils\ReverseBytes.cs = Sources\Utils\ReverseBytes.cs
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{F79B8C18-7A44-43EE-9B93-7EFADEC61E31}"
