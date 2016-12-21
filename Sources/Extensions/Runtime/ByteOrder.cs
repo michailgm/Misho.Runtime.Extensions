@@ -176,7 +176,7 @@ namespace System
         /// <param name="order"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] GetBytes(this byte[] value, Endianness order)
+        public static byte[] Order(this byte[] value, Endianness order)
         {
             if (order != CurrentByteOrder)
                 Array.Reverse(value);
@@ -191,7 +191,7 @@ namespace System
         /// <param name="order"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static char[] GetChars(this char[] value, Endianness order)
+        public static char[] Order(this char[] value, Endianness order)
         {
             if (order != CurrentByteOrder)
                 Array.Reverse(value);
@@ -206,7 +206,7 @@ namespace System
         /// <param name="order"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string GetString(this string value, Endianness order)
+        public static string Order(this string value, Endianness order)
         {
             char[] buf = value.GetChars();
 
@@ -217,49 +217,49 @@ namespace System
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static char GetChar(this char value, Endianness order)
+        public static char Order(this char value, Endianness order)
         {
             return SwapBytes(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static short GetShort(this short value, Endianness order)
+        public static short Order(this short value, Endianness order)
         {
             return SwapBytes(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ushort GetUShort(this ushort value, Endianness order)
+        public static ushort Order(this ushort value, Endianness order)
         {
             return SwapBytes(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int GetInt(this int value, Endianness order)
+        public static int Order(this int value, Endianness order)
         {
             return SwapBytes(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint GetUInt(this uint value, Endianness order)
+        public static uint Order(this uint value, Endianness order)
         {
             return SwapBytes(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static long GetLong(this long value, Endianness order)
+        public static long Order(this long value, Endianness order)
         {
             return SwapBytes(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ulong GetULong(this ulong value, Endianness order)
+        public static ulong Order(this ulong value, Endianness order)
         {
             return SwapBytes(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static decimal GetDecimal(this decimal value, Endianness order)
+        public static decimal Order(this decimal value, Endianness order)
         {
             return SwapBytes(value);
         }

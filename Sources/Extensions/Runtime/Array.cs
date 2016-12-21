@@ -353,7 +353,10 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] GetBytes(this string value, int startIndex)
         {
-            return GetBytes(value, startIndex, value.Length - startIndex);
+            if (value == null)
+                return null;
+            else
+                return GetBytes(value, startIndex, value.Length - startIndex);
         }
 
         /// <summary>
@@ -426,7 +429,10 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] GetBytes(this char[] value, int startIndex)
         {
-            return GetBytes(value, startIndex, value.Length - startIndex);
+            if (value == null)
+                return null;
+            else
+                return GetBytes(value, startIndex, value.Length - startIndex);
         }
 
         #endregion
@@ -436,30 +442,45 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] GetBytes(this string value, Encoding encoding)
         {
-            return encoding.GetBytes(value);
+            if (value == null)
+                return null;
+            else
+                return encoding.GetBytes(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] GetBytes(this string value, int startIndex, Encoding encoding)
         {
-            return encoding.GetBytes(value.GetChars(), startIndex, value.Length - startIndex);
+            if (value == null)
+                return null;
+            else
+                return encoding.GetBytes(value.GetChars(startIndex, value.Length - startIndex));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] GetBytes(this char[] value, Encoding encoding)
         {
-            return encoding.GetBytes(value);
+            if (value == null)
+                return null;
+            else
+                return encoding.GetBytes(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] GetBytes(this char[] value, int startIndex, int length, Encoding encoding)
         {
-            return encoding.GetBytes(value, startIndex, length);
+            if (value == null)
+                return null;
+            else
+                return encoding.GetBytes(value, startIndex, length);
         }
 
         public static byte[] GetBytes(this char[] value, int startIndex, Encoding encoding)
         {
-            return encoding.GetBytes(value, startIndex, value.Length - startIndex);
+            if (value == null)
+                return null;
+            else
+                return encoding.GetBytes(value, startIndex, value.Length - startIndex);
         }
 
         #endregion
@@ -536,7 +557,68 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static char[] GetChars(this string value, int startIndex)
         {
-            return GetChars(value, startIndex, value.Length - startIndex);
+            if (value == null)
+                return null;
+            else
+                return GetChars(value, startIndex, value.Length - startIndex);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] GetChars(this byte[] value)
+        {
+            if (value == null) return null;
+
+            int length = value.Length;
+            char[] buf = new char[length / MemoryHelper.CharSizeInBytes];
+
+            unsafe
+            {
+                fixed (byte* src = value)
+                fixed (char* dst = buf)
+                {
+                    MemoryHelper.Copy(dst, src, length);
+                }
+            }
+
+            return buf;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] GetChars(this byte[] value, int startByteIndex, int byteLength)
+        {
+            if (value == null) return null;
+
+            if ((startByteIndex < 0) || (startByteIndex > value.Length))
+            {
+                throw new ArgumentOutOfRangeException(nameof(startByteIndex));
+            }
+
+            if ((byteLength < 0) || (byteLength > (value.Length - startByteIndex)))
+            {
+                throw new ArgumentOutOfRangeException(nameof(byteLength));
+            }
+
+            char[] buf = new char[byteLength / MemoryHelper.CharSizeInBytes];
+
+            unsafe
+            {
+                fixed (byte* src = value)
+                fixed (char* dst = buf)
+                {
+                    MemoryHelper.Copy(dst, src + startByteIndex, buf.Length * MemoryHelper.CharSizeInBytes);
+                }
+            }
+
+            return buf;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] GetChars(this byte[] value, int startIndex)
+        {
+            if (value == null)
+                return null;
+            else
+                return GetChars(value, startIndex, value.Length - startIndex);
         }
 
         #endregion
@@ -546,31 +628,66 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static char[] GetChars(this string value, Encoding encoding)
         {
-            return encoding.GetChars(value.GetBytes());
+            if (value == null)
+                return null;
+            else
+                return encoding.GetChars(value.GetBytes());
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static char[] GetChars(this string value, int startIndex, int length, Encoding encoding)
+        {
+            if (value == null) return null;
+
+            if ((startIndex < 0) || (startIndex > value.Length))
+            {
+                throw new ArgumentOutOfRangeException(nameof(startIndex));
+            }
+
+            if ((length < 0) || (length > (value.Length - startIndex)))
+            {
+                throw new ArgumentOutOfRangeException(nameof(length));
+            }
+
+            var index = startIndex * MemoryHelper.CharSizeInBytes;
+
+            return encoding.GetChars(value.GetBytes(index, (length * MemoryHelper.CharSizeInBytes) - index));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static char[] GetChars(this string value, int startIndex, Encoding encoding)
         {
+            if (value == null) return null;
+
             var index = startIndex * MemoryHelper.CharSizeInBytes;
-            return encoding.GetChars(value.GetBytes(), index , (value.Length * MemoryHelper.CharSizeInBytes) - index);
+
+            return encoding.GetChars(value.GetBytes(index, (value.Length * MemoryHelper.CharSizeInBytes) - index));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static char[] GetChars(this byte[] value, Encoding encoding)
         {
-            return encoding.GetChars(value);
+            if (value == null)
+                return null;
+            else
+                return encoding.GetChars(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static char[] GetChars(this byte[] value, int startByteIndex, int byteLength, Encoding encoding)
         {
-            return encoding.GetChars(value, startByteIndex, byteLength);
+            if (value == null)
+                return null;
+            else
+                return encoding.GetChars(value, startByteIndex, byteLength);
         }
 
         public static char[] GetChars(this byte[] value, int startByteIndex, Encoding encoding)
         {
-            return encoding.GetChars(value, startByteIndex, value.Length - startByteIndex);
+            if (value == null)
+                return null;
+            else
+                return encoding.GetChars(value, startByteIndex, value.Length - startByteIndex);
         }
         
         #endregion
@@ -585,9 +702,10 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GetString(this char[] value)
         {
-            if (value == null) return null;
-
-            return new string(value);
+            if (value == null)
+                return null;
+            else
+                return new string(value);
         }
 
         /// <summary>
@@ -624,7 +742,10 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GetString(this char[] value, int startIndex)
         {
-            return new string(value, startIndex, value.Length - startIndex);
+            if (value == null)
+                return null;
+            else
+                return new string(value, startIndex, value.Length - startIndex);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -669,7 +790,7 @@ namespace System
                 fixed (byte* src = value)
                 fixed (char* dst = buf)
                 {
-                    MemoryHelper.Copy(dst, src + startIndex, value.Length);
+                    MemoryHelper.Copy(dst, src + startIndex, buf.Length * MemoryHelper.CharSizeInBytes);
                 }
             }
 
@@ -679,7 +800,10 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GetString(this byte[] value, int startIndex)
         {
-            return GetString(value, startIndex, value.Length - startIndex);
+            if (value == null)
+                return null;
+            else
+                return GetString(value, startIndex, value.Length - startIndex);
         }
 
         #endregion
@@ -694,6 +818,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GetBoolean(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             bool value;
 
             unsafe
@@ -715,6 +842,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static sbyte GetSByte(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             sbyte value;
 
             unsafe
@@ -736,6 +866,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte GetByte(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             byte value;
 
             unsafe
@@ -757,6 +890,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static char GetChar(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             char value;
 
             unsafe
@@ -778,6 +914,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static short GetShort(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             short value;
 
             unsafe
@@ -799,6 +938,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ushort GetUShort(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             ushort value;
 
             unsafe
@@ -820,6 +962,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetInt(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             int value;
 
             unsafe
@@ -841,6 +986,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static uint GetUInt(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             uint value;
 
             unsafe
@@ -862,6 +1010,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long GetLong(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             long value;
 
             unsafe
@@ -883,6 +1034,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ulong GetULong(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             ulong value;
 
             unsafe
@@ -904,6 +1058,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static decimal GetDecimal(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             decimal value;
 
             unsafe
@@ -925,6 +1082,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float GetFloat(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             float value;
 
             unsafe
@@ -946,6 +1106,9 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GetDouble(this byte[] buf)
         {
+            if (buf == null)
+                throw new NullReferenceException(nameof(buf));
+
             double value;
 
             unsafe
