@@ -11,17 +11,37 @@ namespace System
 
 #pragma warning disable 1591
 
-    public enum Endianness
+    public struct Endianness
     {
-        LittleEndian,
-        BigEndian
+        public static readonly Endianness LittleEndian;
+        public static readonly Endianness BigEndian;
+        public static readonly Endianness NativeOrder;
+
+        internal readonly bool NeedSwap;
+        private string name;
+        static Endianness()
+        {
+            bool isLittleEndian = BitConverter.IsLittleEndian;
+
+            BigEndian = new Endianness("BigEndian", isLittleEndian);
+            LittleEndian = new Endianness("LittleEndian", !isLittleEndian);
+            NativeOrder = (isLittleEndian) ? LittleEndian : BigEndian;
+        }
+
+        public Endianness(string name, bool needSwap)
+        {
+            this.name = name;
+            NeedSwap = needSwap;
+        }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 
     public static class ByteOrder
     {
-        public static readonly Endianness CurrentByteOrder =
-            (BitConverter.IsLittleEndian) ? Endianness.LittleEndian : Endianness.BigEndian;
-
         /// <summary>
         /// reverse byte order (16-bit) 
         /// </summary>
@@ -136,22 +156,21 @@ namespace System
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static void ReverseBytes(void* value, INT count)
+        public unsafe static void SwapBytes(void* value, INT bytesCount)
         {
-            byte* ptr = (byte*)value;
-            byte tmp;
-            INT lo, hi;
+            INT count;
+            ushort* ptr = (ushort*)value;
 
-            for (lo = 0, hi = count - 1; hi > lo; lo++, hi--)
+
+            count = bytesCount >> 1;
+            while (count-- > 0)
             {
-                tmp = ptr[lo];
-                ptr[lo] = ptr[hi];
-                ptr[hi] = tmp;
+                *ptr = SwapBytes(*ptr++);
             }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ReverseBytes(Array value, INT count)
+        public static void SwapBytes(Array value, INT count)
         {
             var srcHdl = GCHandle.Alloc(value, GCHandleType.Pinned);
 
@@ -160,13 +179,23 @@ namespace System
                 unsafe
                 {
                     IntPtr srcIntPtr = srcHdl.AddrOfPinnedObject();
-                    ReverseBytes(srcIntPtr.ToPointer(), count * value.ElementByteSize());
+                    SwapBytes(srcIntPtr.ToPointer(), count * value.ElementByteSize());
                 }
             }
             finally
             {
                 if (srcHdl.IsAllocated) srcHdl.Free();
             }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SwapBytes(Array value)
+        {
+#if !NETCORE && !SILVERLIGHT            
+            SwapBytes(value, value.LongLength);
+#else
+            SwapBytes(value, value.Length);
+#endif
         }
 
         /// <summary>
@@ -178,8 +207,7 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] Order(this byte[] value, Endianness order)
         {
-            if (order != CurrentByteOrder)
-                Array.Reverse(value);
+            if (order.NeedSwap) SwapBytes(value);
 
             return value;
         }
@@ -193,8 +221,7 @@ namespace System
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static char[] Order(this char[] value, Endianness order)
         {
-            if (order != CurrentByteOrder)
-                Array.Reverse(value);
+            if (order.NeedSwap) SwapBytes(value);
 
             return value;
         }
@@ -209,9 +236,7 @@ namespace System
         public static string Order(this string value, Endianness order)
         {
             char[] buf = value.GetChars();
-
-            if (order != CurrentByteOrder)
-                Array.Reverse(buf);
+            if (order.NeedSwap) SwapBytes(buf);
 
             return buf.GetString();
         }
