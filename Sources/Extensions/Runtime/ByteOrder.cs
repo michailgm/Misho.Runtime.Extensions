@@ -19,6 +19,7 @@ namespace System
 
         internal readonly bool NeedSwap;
         private string name;
+
         static Endianness()
         {
             bool isLittleEndian = BitConverter.IsLittleEndian;

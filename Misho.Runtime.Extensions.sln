@@ -28,6 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Runtime", "Runtime", "{146B
 		Sources\Extensions\Runtime\BitSize.cs = Sources\Extensions\Runtime\BitSize.cs
 		Sources\Extensions\Runtime\ByteOrder.cs = Sources\Extensions\Runtime\ByteOrder.cs
 		Sources\Extensions\Runtime\ByteSize.cs = Sources\Extensions\Runtime\ByteSize.cs
+		Sources\Extensions\Runtime\Numeric.cs = Sources\Extensions\Runtime\Numeric.cs
 		Sources\Extensions\Runtime\Type.cs = Sources\Extensions\Runtime\Type.cs
 	EndProjectSection
 EndProject

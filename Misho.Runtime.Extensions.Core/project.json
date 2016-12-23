@@ -24,7 +24,8 @@
         "../Sources/Extensions/Runtime/BitSize.cs",
         "../Sources/Extensions/Runtime/ByteOrder.cs",
         "../Sources/Extensions/Runtime/Array.cs",
-        "../Sources/Extensions/Runtime/Type.cs"
+        "../Sources/Extensions/Runtime/Type.cs",
+        "../Sources/Extensions/Runtime/Numeric.cs"
       ]
     }
   }
