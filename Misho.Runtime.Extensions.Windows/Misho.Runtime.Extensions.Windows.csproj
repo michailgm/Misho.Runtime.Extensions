@@ -56,9 +56,6 @@
     <Compile Include="..\Sources\Extensions\Runtime\ByteSize.cs">
       <Link>Extensions\Runtime\ByteSize.cs</Link>
     </Compile>
-    <Compile Include="..\Sources\Extensions\Runtime\Numeric.cs">
-      <Link>Extensions\Runtime\Numeric.cs</Link>
-    </Compile>
     <Compile Include="..\Sources\Extensions\Runtime\Type.cs">
       <Link>Extensions\Runtime\Type.cs</Link>
     </Compile>

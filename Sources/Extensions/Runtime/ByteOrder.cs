@@ -9,8 +9,6 @@ namespace System
     using INT = Int32;
 #endif
 
-#pragma warning disable 1591
-
     public struct Endianness
     {
         public static readonly Endianness LittleEndian;
@@ -291,6 +289,4 @@ namespace System
         }
 
     }
-
-#pragma warning restore 1591
 }

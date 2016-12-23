@@ -12,8 +12,6 @@ namespace Misho.Utils
     using INT = Int32;
 #endif
 
-#pragma warning disable 1591
-
     public sealed class MemoryHelper
     {
         public const int BoolSizeInBytes = sizeof(bool);
@@ -531,6 +529,4 @@ namespace Misho.Utils
             }
         }
     }
-
-#pragma warning restore 1591
 }

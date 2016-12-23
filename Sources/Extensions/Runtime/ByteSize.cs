@@ -3,7 +3,6 @@ using Misho.Utils;
 
 namespace System
 {
-#pragma warning disable 1591
     public static partial class Extensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -155,6 +154,4 @@ namespace System
             return (array == null) ? 0 : array.GetType().GetElementType().ByteSize();
         }
     }
-
-#pragma warning restore 1591
 }

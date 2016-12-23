@@ -4,8 +4,6 @@ using System.Text;
 
 namespace System
 {
-#pragma warning disable 1591
-
     public static partial class Extensions
     {
         #region GetBytes functions
@@ -1125,6 +1123,4 @@ namespace System
         #endregion
 
     }
-
-#pragma warning restore 1591
 }

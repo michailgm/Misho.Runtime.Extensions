@@ -22,7 +22,8 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>bin\Debug\Misho.Runtime.Extensions.iOS.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -56,9 +57,6 @@
     </Compile>
     <Compile Include="..\Sources\Extensions\Runtime\ByteSize.cs">
       <Link>Extensions\Runtime\ByteSize.cs</Link>
-    </Compile>
-    <Compile Include="..\Sources\Extensions\Runtime\Numeric.cs">
-      <Link>Extensions\Runtime\Numeric.cs</Link>
     </Compile>
     <Compile Include="..\Sources\Extensions\Runtime\Type.cs">
       <Link>Extensions\Runtime\Type.cs</Link>
